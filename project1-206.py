@@ -6,7 +6,7 @@ from datetime import date
 
 def getData(file):
 # get a list of dictionary objects from the file
-#Input: file name fkjadsfkajdfkjasdf;lkasdfl;adjfa;ldskfa;lj
+#Input: file name rachel sjshl
 #Ouput: return a list of dictionary objects where
 #the keys are from the first row in the data. and the values are each of the other rows
 
