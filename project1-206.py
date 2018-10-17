@@ -1,41 +1,89 @@
+# how to make it save on the git
+	#git add [filename]
+	#git commit -m "[message]"
+	#git push
 import os
 import filecmp
 from dateutil.relativedelta import *
 from datetime import date
+import csv
+
 
 
 def getData(file):
 # get a list of dictionary objects from the file
-#Input: file name rachel sjshl
+#Input: file name
 #Ouput: return a list of dictionary objects where
 #the keys are from the first row in the data. and the values are each of the other rows
+	infile=open(file,"r")
+	reader= csv.reader(infile)
+	headers=reader.__next__()
+	lists=[]
+	for line in reader:
+		data={}
+		data[headers[0]]=line[0]
+		data[headers[1]]=line[1]
+		data[headers[2]]=line[2]
+		data[headers[3]]=line[3]
+		data[headers[4]]=line[4]
+		if data not in lists:
+			lists.append(data)
+	#print(lists)
+	return lists
 
-	pass
+
+
 
 def mySort(data,col):
 # Sort based on key/column
 #Input: list of dictionaries and col (key) to sort on
 #Output: Return the first item in the sorted list as a string of just: firstName lastName
+	sortedkeys=sorted(data,key=lambda k:k[col])
+	#print (sortedkeys)
+	firstkey=sortedkeys[0]
+	firstname=firstkey["First"]
+	lastname=firstkey["Last"]
+	return firstname + " " + lastname
 
-	pass
 
 
 def classSizes(data):
 # Create a histogram
-# Input: list of dictionaries
+# # Input: list of dictionaries
 # Output: Return a list of tuples sorted by the number of students in that class in
 # descending order
 # [('Senior', 26), ('Junior', 25), ('Freshman', 21), ('Sophomore', 18)]
-
-	pass
-
+	fresh_acum=0
+	sophmore_acum=0
+	junior_acum=0
+	seniors_acum=0
+	for dictionary in data:
+		gettingclass=dictionary["Class"]
+		if gettingclass=="Freshman":
+			fresh_acum+=1
+		elif gettingclass=="Sophomore":
+			sophmore_acum+=1
+		elif gettingclass=="Junior":
+			junior_acum+=1
+		elif gettingclass=="Senior":
+			seniors_acum+=1
+	list_numbers=[('Senior', seniors_acum), ('Junior', junior_acum), ('Freshman', fresh_acum), ('Sophomore', sophmore_acum)]
+	return sorted(list_numbers,key=lambda k:k[1],reverse=True)
 
 def findMonth(a):
 # Find the most common birth month form this data
 # Input: list of dictionaries
 # Output: Return the month (1-12) that had the most births in the data
+	dict={}
+	for dictionary in a:
+		gettingdob=dictionary["DOB"]
+		spliting=gettingdob.split("/")
+		dict[spliting[0]]=dict.get(spliting[0],0)+1
+	#print(dict)
 
-	pass
+	return sorted(dict,key=dict.get,reverse=True)[0] # now we have dictionary not tuples only wanted the first number in list
+
+
 
 def mySortPrint(a,col,fileName):
 #Similar to mySort, but instead of returning single
@@ -43,17 +91,39 @@ def mySortPrint(a,col,fileName):
 # as fist,last,email
 #Input: list of dictionaries, col (key) to sort by and output file name
 #Output: No return value, but the file is written
-
-	pass
+	mywritefile=open(fileName,"w")
+	writer=csv.writer(mywritefile)
+	sortedkeys=sorted(a,key=lambda k:k[col])
+	for student in sortedkeys:
+		firstname=student["First"]
+		lastname=student["Last"]
+		email=student["Email"]
+		writer.writerow([firstname,lastname,email])
 
 def findAge(a):
-# def findAge(a):
 # Input: list of dictionaries
 # Output: Return the average age of the students and round that age to the nearest
 # integer.  You will need to work with the DOB and the current date to find the current
 # age in years.
+	dict={}
+	ages = 0
+	numberpeople = 0
+	for dictionary in a:
+		gettingdob=dictionary["DOB"]
+		spliting=gettingdob.split("/")
+		theredates=date(int(spliting[2]),int(spliting[0]),int(spliting[1]))
+		age=date.today()-theredates
+		ages+= age
+		numberpeople+=1
+	return(ages/numberpeople)
+		#print(age)
+		#convert it to years google python date time covert dates to years
+		#take that number and round it to nearest year
+		#for each student you want to get that age accum it to a list then
+		#once have it at end of for loop fine the average of list
 
-	pass
+	#return sorted(dict,key=dict.get,reverse=True)[0] # now we have dictionary not tuples only wanted the first number in list
+
 
 
 ################################################################
