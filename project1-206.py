@@ -81,7 +81,7 @@ def findMonth(a):
 		dict[spliting[0]]=dict.get(spliting[0],0)+1
 	#print(dict)
 
-	return sorted(dict,key=dict.get,reverse=True)[0] # now we have dictionary not tuples only wanted the first number in list
+	return int(sorted(dict,key=dict.get,reverse=True)[0]) # now we have dictionary not tuples only wanted the first number in list
 
 
 
@@ -92,13 +92,14 @@ def mySortPrint(a,col,fileName):
 #Input: list of dictionaries, col (key) to sort by and output file name
 #Output: No return value, but the file is written
 	mywritefile=open(fileName,"w")
-	writer=csv.writer(mywritefile)
 	sortedkeys=sorted(a,key=lambda k:k[col])
 	for student in sortedkeys:
 		firstname=student["First"]
 		lastname=student["Last"]
 		email=student["Email"]
-		writer.writerow([firstname,lastname,email])
+		mywritefile.write(firstname + "," + lastname + "," + email + "\n")
+	mywritefile.close()
+
 
 def findAge(a):
 # Input: list of dictionaries
@@ -113,9 +114,10 @@ def findAge(a):
 		spliting=gettingdob.split("/")
 		theredates=date(int(spliting[2]),int(spliting[0]),int(spliting[1]))
 		age=date.today()-theredates
-		ages+= age
+		age=round(age.days/365)
+		ages+=age
 		numberpeople+=1
-	return(ages/numberpeople)
+	return(round(ages/numberpeople))
 		#print(age)
 		#convert it to years google python date time covert dates to years
 		#take that number and round it to nearest year
