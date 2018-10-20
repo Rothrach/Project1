@@ -106,34 +106,29 @@ def findAge(a):
 # Output: Return the average age of the students and round that age to the nearest
 # integer.  You will need to work with the DOB and the current date to find the current
 # age in years.
-	dict={}
+	todaysdate=date.today()
 	ages = 0
 	numberpeople = 0
-	for dictionary in a:
-		gettingdob=dictionary["DOB"]
-		spliting=gettingdob.split("/")
-		theredates=date(int(spliting[2]),int(spliting[0]),int(spliting[1]))
-		age=date.today()-theredates
-		age=round(age.days/365)
-		ages+=age
+	for people in a:
 		numberpeople+=1
+		gettingdob=people["DOB"].split("/")
+		year=(todaysdate.year-int(gettingdob[2]))
+		ages+=year
 	return(round(ages/numberpeople))
-#this works! but hard coding 
-	currentyear=int(2018)
-	totalages = 0
-	numberpeople = 0
-	for dictionary in a:
-		numberpeople+=1
-		gettingdob=dictionary["DOB"]
-		spliting=gettingdob.split("/")
-		theredates=date(int(spliting[2]),int(spliting[0]),int(spliting[1]))
-		year=spliting[2]
-		age = int(currentyear - int(year))
-		totalages+= age
+#this works! but hard coding
+	# currentyear=int(2018)
+	# totalages = 0
+	# numberpeople = 0
+	# for dictionary in a:
+	# 	numberpeople+=1
+	# 	gettingdob=dictionary["DOB"]
+	# 	spliting=gettingdob.split("/")
+	# 	theredates=date(int(spliting[2]),int(spliting[0]),int(spliting[1]))
+	# 	year=spliting[2]
+	# 	age = int(currentyear - int(year))
+	# 	totalages+= age
+	# #
 
-	return(int(totalages/numberpeople))
-	#return(round(ages/numberpeople))
-		#print(age)
 		#convert it to years google python date time covert dates to years
 		#take that number and round it to nearest year
 		#for each student you want to get that age accum it to a list then
