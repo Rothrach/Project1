@@ -115,19 +115,7 @@ def findAge(a):
 		year=(todaysdate.year-int(gettingdob[2]))
 		ages+=year
 	return(round(ages/numberpeople))
-#this works! but hard coding
-	# currentyear=int(2018)
-	# totalages = 0
-	# numberpeople = 0
-	# for dictionary in a:
-	# 	numberpeople+=1
-	# 	gettingdob=dictionary["DOB"]
-	# 	spliting=gettingdob.split("/")
-	# 	theredates=date(int(spliting[2]),int(spliting[0]),int(spliting[1]))
-	# 	year=spliting[2]
-	# 	age = int(currentyear - int(year))
-	# 	totalages+= age
-	# #
+
 
 		#convert it to years google python date time covert dates to years
 		#take that number and round it to nearest year
